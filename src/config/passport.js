@@ -1,0 +1,31 @@
+const passport        = require('passport'),
+      LocalStrategy   = require('passport-local').Strategy;
+
+const User = require('../models/User');
+
+passport.use(new LocalStrategy({
+  usernameField: 'email'
+}, async (email, pasword, done) => {
+  const user =await User.findOne({email: email});
+  // Validation of user
+  if(!user) {
+    return done(null, false, {message: 'Usuario no encontrado.'});
+  } else {
+    const match = await User.matchPassword(pasword);
+    if(match) {
+      return done(null, user);
+    } else {
+      return done(null, false, {message: 'Contraseña incorrecta.'});
+    }
+  }
+}));
+
+passport.serializeUser((user, done) => {
+  return done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
