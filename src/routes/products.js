@@ -44,4 +44,10 @@ router.put('/products/edit-product/:id', async (req, res) => {
   res.redirect('/products');
 });
 
+// Eliminar producto
+router.delete('/products/delete/:id', async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
+  res.redirect('/products');
+});
+
 module.exports = router;
