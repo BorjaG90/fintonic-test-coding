@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const Product = require('../models/Product');
 
-// Añadir producto
+// Add product
 router.get('/products/new', (req, res) => {
   res.render('products/new-product');
 });
@@ -10,6 +10,7 @@ router.get('/products/new', (req, res) => {
 router.post('/products/new', async (req, res) => {
   const { name, description } = req.body;
   const errors = [];
+  // Validation
   if(!name) {
     errors.push({text: 'Escriba un nombre'});
   }
@@ -27,13 +28,13 @@ router.post('/products/new', async (req, res) => {
   }
 });
 
-// Listar productos
+// List product
 router.get('/products', async (req, res) => {
   const products = await Product.find().sort({date: 'desc'});
   res.render('products/all-products', { products });
 });
 
-// Editar producto
+// Edit product
 router.get('/products/edit/:id', async (req, res) => {
   const product = await Product.findById(req.params.id);
   res.render('products/edit-product', {product});
@@ -46,7 +47,7 @@ router.put('/products/edit-product/:id', async (req, res) => {
   res.redirect('/products');
 });
 
-// Eliminar producto
+// Remove product
 router.delete('/products/delete/:id', async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   req.flash('success_msg', 'Producto eliminado satisfactoriamente');
