@@ -5,13 +5,13 @@ const User = require('../models/User');
 
 passport.use(new LocalStrategy({
   usernameField: 'email'
-}, async (email, pasword, done) => {
+}, async (email, password, done) => {
   const user =await User.findOne({email: email});
   // Validation of user
   if(!user) {
     return done(null, false, {message: 'Usuario no encontrado.'});
   } else {
-    const match = await User.matchPassword(pasword);
+    const match = await user.matchPassword(password);
     if(match) {
       return done(null, user);
     } else {
