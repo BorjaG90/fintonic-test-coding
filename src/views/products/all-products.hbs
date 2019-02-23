@@ -1,7 +1,7 @@
 <div class="row">
   {{#each products}}
     <div class = "col-md-3">
-      <div class="card">
+      <div class="card text-center">
         <div class="card-body">
           <h4 class="card-title d-flex justfy-content-between align-items-center">
             {{name}} 
@@ -20,6 +20,7 @@
   {{else}}
     <div class="card mx-auto">
       <div class="card-body">
+        <h3>Hola {{user.name}}</h3>
         <p class="lead">No hay productos todavía</p>
         <a href="/products/new" class="btn btn-success btn-block">
           Crear un producto
