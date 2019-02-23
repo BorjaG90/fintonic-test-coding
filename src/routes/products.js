@@ -5,8 +5,20 @@ router.get('/products/new', (req, res) => {
 });
 
 router.post('/products/new', (req, res) => {
-  console.log(req.body);
-  res.send('OK');
+  const { name, description } = req.body;
+  const errors = [];
+  if(!name) {
+    errors.push({text: 'Escriba un nombre'});
+  }
+  if(errors.length > 0){
+    res.render('products/new_product', {
+      errors,
+      name,
+      description
+    });
+  } else {
+    res.send('Ok');
+  }
 });
 
 router.get('/products', (req, res) =>{
