@@ -2,9 +2,18 @@ const router = require('express').Router();
 
 const User = require('../models/User')
 
+const passport = require('passport');
+
+// Login
 router.get('/users/login', (req, res) => {
   res.render('users/login');
 });
+
+router.post('/users/login', passport.authenticate('local', {
+  successRedirect: '/products',
+  failureRedirect: '/users/login',
+  failureFlash: true
+}));
 
 // Register User
 router.get('/users/signup', (req, res) => {
