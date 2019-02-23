@@ -3,10 +3,10 @@ const router = require('express').Router();
 const Product = require('../models/Product');
 
 router.get('/products/new', (req, res) => {
-  res.render('products/new_product');
+  res.render('products/new-product');
 });
 
-router.post('/products/new', (req, res) => {
+router.post('/products/new', async (req, res) => {
   const { name, description } = req.body;
   const errors = [];
   if(!name) {
@@ -20,11 +20,14 @@ router.post('/products/new', (req, res) => {
     });
   } else {
     const newProduct = new Product({ name, description });
+    await newProduct.save();
+    res.redirect('/products');
   }
 });
 
-router.get('/products', (req, res) =>{
-  res.send('Lista de productos');
+router.get('/products', async (req, res) =>{
+  const products = await Product.find().sort({date: 'desc'});
+  res.render('products/all-products', { products });
 });
 
 module.exports = router;
