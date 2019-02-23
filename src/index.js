@@ -1,6 +1,8 @@
-const   express     = require('express'),
-        path        = require('path'),
-        hbs         = require('express-handlebars');
+const   express         = require('express'),
+        path            = require('path'),
+        hbs             = require('express-handlebars'),
+        methodOverride  = require('method-override'),
+        session         = require('express-session');
 // Initializations
 const app = express();
 
@@ -16,7 +18,13 @@ app.engine('.hbs', hbs({
 app.set('view engine', '.hbs');
 
 // Middleware
-
+app.use(express.urlencoded({extended: false}));
+app.use(methodOverride('_method'));
+app.use(session({
+    secret: 'fintonictestapi',
+    resave: true,
+    saveUninitialized: true
+}));
 // Global variables
 
 // Routes
