@@ -1,13 +1,14 @@
 const router = require('express').Router();
 
-const Product = require('../models/Product');
+const Product = require('../models/Product'),
+      { isAuthenticated } = require('../helpers/auth');
 
 // Add product
-router.get('/products/new', (req, res) => {
+router.get('/products/new', isAuthenticated, (req, res) => {
   res.render('products/new-product');
 });
 
-router.post('/products/new', async (req, res) => {
+router.post('/products/new', isAuthenticated, async (req, res) => {
   const { name, description } = req.body;
   const errors = [];
   // Validation
@@ -35,12 +36,12 @@ router.get('/products', async (req, res) => {
 });
 
 // Edit product
-router.get('/products/edit/:id', async (req, res) => {
+router.get('/products/edit/:id', isAuthenticated, async (req, res) => {
   const product = await Product.findById(req.params.id);
   res.render('products/edit-product', {product});
 });
 
-router.put('/products/edit-product/:id', async (req, res) => {
+router.put('/products/edit-product/:id', isAuthenticated, async (req, res) => {
   const {name, description} = req.body;
   await Product.findByIdAndUpdate(req.params.id, {name, description});
   req.flash('success_msg', 'Producto actualizado satisfactoriamente');
@@ -48,7 +49,7 @@ router.put('/products/edit-product/:id', async (req, res) => {
 });
 
 // Remove product
-router.delete('/products/delete/:id', async (req, res) => {
+router.delete('/products/delete/:id', isAuthenticated, async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   req.flash('success_msg', 'Producto eliminado satisfactoriamente');
   res.redirect('/products');
