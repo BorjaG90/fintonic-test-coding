@@ -22,6 +22,7 @@ router.post('/products/new', async (req, res) => {
   } else {
     const newProduct = new Product({ name, description });
     await newProduct.save();
+    req.flash('success_msg', 'Producto agregado satisfactoriamente');
     res.redirect('/products');
   }
 });
@@ -41,12 +42,14 @@ router.get('/products/edit/:id', async (req, res) => {
 router.put('/products/edit-product/:id', async (req, res) => {
   const {name, description} = req.body;
   await Product.findByIdAndUpdate(req.params.id, {name, description});
+  req.flash('success_msg', 'Producto actualizado satisfactoriamente');
   res.redirect('/products');
 });
 
 // Eliminar producto
 router.delete('/products/delete/:id', async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
+  req.flash('success_msg', 'Producto eliminado satisfactoriamente');
   res.redirect('/products');
 });
 
