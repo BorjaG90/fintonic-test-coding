@@ -25,9 +25,13 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 // Global variables
 
 // Routes
+app.use(require('./routes/index'));
+app.use(require('./routes/products'));
+app.use(require('./routes/users'));
 
 // Static Files
 
