@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const Product = require('../models/Product');
+
 router.get('/products/new', (req, res) => {
   res.render('products/new_product');
 });
@@ -17,7 +19,7 @@ router.post('/products/new', (req, res) => {
       description
     });
   } else {
-    res.send('Ok');
+    const newProduct = new Product({ name, description });
   }
 });
 
