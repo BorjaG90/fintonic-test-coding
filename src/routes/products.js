@@ -16,7 +16,7 @@ router.post('/products/new', isAuthenticated, async (req, res) => {
     errors.push({text: 'Escriba un nombre'});
   }
   if(errors.length > 0){
-    res.render('products/new_product', {
+    res.render('products/new-product', {
       errors,
       name,
       description
