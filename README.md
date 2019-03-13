@@ -1,6 +1,6 @@
 # test-nodejs
 
-![](https://img.shields.io/badge/Maintained-Yes-green.svg)
+![](https://img.shields.io/badge/Maintained-No-Red.svg)
 ![](https://img.shields.io/badge/Status-Close-green.svg)
 
 A simple nodeJS api of products
