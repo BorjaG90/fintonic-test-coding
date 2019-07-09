@@ -1,4 +1,4 @@
-# test-nodejs
+# fintonic-test-coding
 
 ![](https://img.shields.io/badge/Maintained-No-Red.svg)
 ![](https://img.shields.io/badge/Status-Close-green.svg)
