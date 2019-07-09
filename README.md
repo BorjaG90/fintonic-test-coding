@@ -1,4 +1,4 @@
-# fintonic-test-coding
+# fintonic-coding-test
 
 ![](https://img.shields.io/badge/Maintained-No-Red.svg)
 ![](https://img.shields.io/badge/Status-Close-green.svg)
